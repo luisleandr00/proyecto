@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableros Públicos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+</head>
+<body>
+<!-- Header para usuarios autenticados -->
+<div sec:authorize="isAuthenticated()">
+    <div th:replace="~{fragments/header :: header-auth}"></div>
+</div>
+
+<!-- Banner superior -->
+<div class="bg-white py-4 shadow-sm mb-4">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Explora Tableros Públicos</h1>
+        <p class="text-muted">Descubre colecciones increíbles creadas por nuestra comunidad</p>
+    </div>
+</div>
+
+<!-- Grid de tableros -->
+<div class="container py-4">
+    <div class="row g-4">
+        <!-- Solo iteramos sobre los tableros públicos -->
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3"
+             th:each="board : ${boards}"
+             th:if="${!board.isPrivate}">
+            <div class="card h-100 shadow-sm">
+                <!-- Imagen del tablero -->
+                <div class="card-img-top-wrapper">
+                    <div th:if="${board.image}" class="board-image">
+                        <img th:src="@{'/api/boards/' + ${board.id} + '/image'}"
+                             class="card-img-top"
+                             alt="Imagen del tablero">
+                    </div>
+                    <div th:unless="${board.image}" class="placeholder-image"></div>
+                </div>
+
+                <!-- Contenido del tablero -->
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${board.name}">Nombre del Tablero</h5>
+                    <p class="card-text" th:text="${board.description}">Descripción del tablero</p>
+
+                    <!-- Footer con información adicional -->
+                    <div class="d-flex justify-content-between align-items-center mt-3 small text-muted">
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
