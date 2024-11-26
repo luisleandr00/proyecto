@@ -11,6 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+
+/**
+ * Controlador responsable de renderizar el panel de control del usuario.
+ *
+ * Proporciona un endpoint para mostrar tableros específicos del usuario en el panel de control.
+ * Utiliza el mecanismo de autenticación de Spring Security para recuperar detalles del usuario.
+ *
+ * @author luis
+ * @version 1.0
+ * @since 25-11-2024
+ */
 @Controller
 public class DashboardController {
 

@@ -15,7 +15,19 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
+/**
+ * Configuración de seguridad para la aplicación Spring Security.
+ *
+ * Configura:
+ * - Filtros de seguridad HTTP
+ * - Rutas de autenticación
+ * - Manejo de inicio de sesión y cierre de sesión
+ * - Codificación de contraseñas
+ *
+ * @author luis
+ * @version 1.0
+ * @since 25-11-2024
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig implements WebMvcConfigurer {
@@ -31,6 +43,17 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/js/")
                 .setCachePeriod(3600);
     }
+
+    /**
+     * Configura la cadena de filtros de seguridad HTTP.
+     *
+     * Establece reglas de autorización, configuración de inicio de sesión,
+     * cierre de sesión y gestión de sesiones.
+     *
+     * @param http Configurador de seguridad HTTP de Spring
+     * @return Cadena de filtros de seguridad configurada
+     * @throws Exception Si hay un error en la configuración de seguridad
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -68,6 +91,14 @@ public class SecurityConfig implements WebMvcConfigurer {
 
         return http.build();
     }
+
+    /**
+     * Crea un codificador de contraseñas seguro.
+     *
+     * Utiliza BCryptPasswordEncoder para el hash de contraseñas.
+     *
+     * @return PasswordEncoder para codificar contraseñas
+     */
 
     @Bean
     public PasswordEncoder passwordEncoder() {

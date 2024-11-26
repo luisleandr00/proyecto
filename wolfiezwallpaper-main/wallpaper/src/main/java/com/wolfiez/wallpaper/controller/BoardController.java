@@ -16,6 +16,19 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
+
+/**
+ * Controlador REST para gestionar operaciones relacionadas con tableros.
+ *
+ * Proporciona endpoints para crear, actualizar, eliminar y recuperar tableros.
+ * Admite operaciones como carga de imágenes de tableros, recuperación de detalles
+ * de tableros y búsqueda de tableros.
+ *
+ * @author luis
+ * @version 1.0
+ * @since 25-11-2024
+ */
+
 @RestController
 @RequestMapping("/api/boards")
 public class BoardController {
@@ -24,6 +37,16 @@ public class BoardController {
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
     }
+
+
+
+    /**
+     * Carga una imagen para un tablero específico.
+     *
+     * @param boardId El identificador único del tablero
+     * @param imageFile El archivo multipart que contiene la imagen del tablero
+     * @return ResponseEntity con el Tablero actualizado o un estado de error
+     */
     @PostMapping(value = "/{boardId}/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Board> uploadBoardImage(
             @PathVariable Long boardId,
@@ -38,6 +61,13 @@ public class BoardController {
         }
     }
 
+
+    /**
+     * Recupera la imagen de un tablero específico.
+     *
+     * @param boardId El identificador único del tablero
+     * @return ResponseEntity que contiene los bytes de la imagen del tablero
+     */
     @GetMapping("/{boardId}/image")
     public ResponseEntity<byte[]> getBoardImage(@PathVariable Long boardId) {
         try {
@@ -62,6 +92,14 @@ public class BoardController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+    /**
+     * Crea un nuevo tablero para un usuario.
+     *
+     * @param boardDto Objeto de transferencia de datos que contiene detalles de creación del tablero
+     * @return ResponseEntity con el BoardResponseDto creado
+     */
     @PostMapping
     public ResponseEntity<BoardResponseDto> createBoard(@RequestBody BoardDto boardDto) {
         try {

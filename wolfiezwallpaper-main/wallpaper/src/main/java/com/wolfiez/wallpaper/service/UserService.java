@@ -19,6 +19,14 @@ import java.io.IOException;
 import java.util.List;
 
 
+/**
+ * Service class for managing user-related operations.
+ * Handles user authentication, registration, profile management, and user searches.
+ *
+ * @author luis
+ * @version 1.0
+ * @since 25-11-2024
+ */
 @Service
 @Transactional
 public class UserService {
@@ -35,6 +43,15 @@ public class UserService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+    /**
+     * Updates the profile image for a specific user.
+     *
+     * @param userId Unique identifier of the user
+     * @param imageFile Multipart image file to be stored
+     * @return Updated User entity
+     * @throws IOException If there's an error processing the image
+     */
     public User updateProfileImage(Long userId, MultipartFile imageFile) throws IOException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -45,6 +62,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * Retrieves the profile image for a specific user.
+     *
+     * @param userId Unique identifier of the user
+     * @return Byte array representing the profile image, or null if no image exists
+     */
     public byte[] getProfileImage(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -55,6 +78,12 @@ public class UserService {
 
         return imageService.decodeImage(user.getProfileImage());
     }
+
+    /**
+     * Removes the profile image for a specific user.
+     *
+     * @param userId Unique identifier of the user
+     */
     public void removeProfileImage(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));

@@ -20,6 +20,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 
 
+/**
+ * Controlador que gestiona operaciones relacionadas con el perfil de usuario.
+ *
+ * Maneja la visualización de perfiles, actualización y funcionalidad de carga de imágenes.
+ * Utiliza Spring Security para la autenticación y recuperación del contexto de usuario.
+ *
+ * @author luis
+ * @version 1.0
+ * @since 25-11-2024
+ */
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
@@ -35,6 +45,14 @@ public class ProfileController {
         this.imageService = imageService;
     }
 
+
+    /**
+     * Recupera y muestra el perfil del usuario.
+     *
+     * @param userDetails Detalles de usuario de Spring Security del usuario autenticado
+     * @param model Modelo de Spring MVC para agregar atributos a la vista
+     * @return Nombre de la vista para renderizar la página de perfil
+     */
     @GetMapping
     public String getProfile(@AuthenticationPrincipal UserDetails userDetails,
                              Model model) {
@@ -47,6 +65,21 @@ public class ProfileController {
         }
     }
 
+
+    /**
+     * Actualiza la información del perfil de usuario.
+     *
+     * Admite la actualización de detalles de usuario, imagen de perfil y contraseña.
+     * Incluye validación para confirmación de contraseña.
+     *
+     * @param userDto Objeto de transferencia de datos que contiene información de actualización de usuario
+     * @param profileImage Archivo multipart opcional para la imagen de perfil
+     * @param newPassword Contraseña nueva opcional para el usuario
+     * @param confirmPassword Confirmación de contraseña para prevenir errores
+     * @param authentication Objeto de Autenticación de Spring Security
+     * @param redirectAttributes Atributos de redirección de Spring MVC para mensajes flash
+     * @return Ruta de redirección basada en el éxito o fallo de la actualización
+     */
     @PostMapping("/update")
     public String updateProfile(
             @ModelAttribute UserDto userDto,

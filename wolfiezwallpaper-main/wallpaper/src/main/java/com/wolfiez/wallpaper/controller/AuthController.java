@@ -10,6 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+/**
+ * Controlador responsable de manejar operaciones relacionadas con la autenticación.
+ *
+ * Este controlador proporciona endpoints para el registro de usuarios e inicio de sesión,
+ * utilizando el servicio de usuarios para la autenticación y gestión de usuarios.
+ *
+ * @author luis
+ * @version 1.0
+ * @since 25-11-2024
+ */
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "*")

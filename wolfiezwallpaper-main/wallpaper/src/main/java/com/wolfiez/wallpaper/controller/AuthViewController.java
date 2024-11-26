@@ -11,6 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
+/**
+ * Controlador que maneja operaciones de vista relacionadas con la autenticación.
+ *
+ * Este controlador gestiona la renderización de páginas de registro e inicio de sesión,
+ * y procesa el registro de usuarios a través del servicio de usuarios.
+ *
+ * @author luis
+ * @version 1.0
+ * @since 25-11-2024
+ */
 @Controller
 public class AuthViewController {
 

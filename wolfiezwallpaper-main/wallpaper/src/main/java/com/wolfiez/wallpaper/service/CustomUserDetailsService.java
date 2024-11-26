@@ -12,12 +12,27 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
+/**
+ * Custom implementation of Spring Security's UserDetailsService.
+ * Loads user-specific data for authentication and authorization.
+ *
+ * @author luis
+ * @version 1.0
+ * @since 25-11-2024
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Loads a user by their email address for authentication.
+     *
+     * @param email User's email address
+     * @return UserDetails object containing user authentication information
+     * @throws UsernameNotFoundException If no user is found with the given email
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
